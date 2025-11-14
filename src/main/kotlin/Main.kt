@@ -48,7 +48,7 @@ fun main() {
             $html
         </body>
         </html>
-    """.trimIndent().toString()
+    """.trimIndent()
 
     val outputFile = File("file.pdf")
     val outputStream = outputFile.outputStream()
