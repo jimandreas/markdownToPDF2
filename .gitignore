@@ -24,9 +24,15 @@ local.properties
 # Windows thumbnail db
 .DS_Store
 
-# IDEA/Android Studio project files, because
-# the project can be imported from settings.gradle
-.idea
+# IDEA/Android Studio — share project config, ignore user-local files
+.idea/workspace.xml
+.idea/caches/
+.idea/libraries/
+.idea/shelf/
+.idea/httpRequests/
+.idea/dataSources/
+.idea/usage.statistics.xml
+.idea/sonarlint/
 .kotlin
 *.iml
 
@@ -49,4 +55,7 @@ gradle/signing.properties
 
 # random cruft
 stdout
+
+# generated output
+file.pdf
 
