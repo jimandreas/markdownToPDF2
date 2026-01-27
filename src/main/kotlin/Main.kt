@@ -6,33 +6,19 @@ import org.commonmark.parser.Parser
 import org.commonmark.renderer.html.HtmlRenderer
 import java.io.File
 
-fun main() {
-    val inputFile = File("file.md")
-    if (!inputFile.exists()) {
-        println("file.md not found")
-        return
-    }
-
-//    val markdown = inputFile.readText()
-//
-//    val parser = Parser.builder().build()
-//    val document = parser.parse(markdown)
-//    val renderer = HtmlRenderer.builder().escapeHtml(true).build()
-//    var html = renderer.render(document)
-
-    val markdown = inputFile.readText()
+fun convertMarkdownToHtml(markdown: String): String {
+    val extensions = listOf(TablesExtension.create())
     val parser = Parser.builder()
-        .extensions(listOf(TablesExtension.create()))  // Enable tables parsing
+        .extensions(extensions)
         .build()
     val document = parser.parse(markdown)
     val renderer = HtmlRenderer.builder()
-        .extensions(listOf(TablesExtension.create()))  // Enable tables rendering to HTML
-        .escapeHtml(true)
+        .extensions(extensions)
+        .escapeHtml(false)
         .build()
-    var html = renderer.render(document)
+    val bodyHtml = renderer.render(document)
 
-    // Wrap in full HTML with Arial font and basic table styling
-    html = """
+    return """
         <html>
         <head>
             <style>
@@ -45,15 +31,26 @@ fun main() {
             </style>
         </head>
         <body>
-            $html
+            $bodyHtml
         </body>
         </html>
     """.trimIndent()
+}
 
-    val outputFile = File("file.pdf")
-    val outputStream = outputFile.outputStream()
-    HtmlConverter.convertToPdf(html, outputStream)  // Uses OutputStream overload
+fun convertMarkdownFileToPdf(inputFile: File, outputFile: File) {
+    val markdown = inputFile.readText()
+    val html = convertMarkdownToHtml(markdown)
+    outputFile.outputStream().use { outputStream ->
+        HtmlConverter.convertToPdf(html, outputStream)
+    }
+}
 
-
+fun main() {
+    val inputFile = File("file.md")
+    if (!inputFile.exists()) {
+        println("file.md not found")
+        return
+    }
+    convertMarkdownFileToPdf(inputFile, File("file.pdf"))
     println("Converted file.md to file.pdf")
 }

@@ -24,11 +24,17 @@ dependencies {
 
     // GFM Tables extension for CommonMark
     implementation("org.commonmark:commonmark-ext-gfm-tables:0.27.0")
+
+    testImplementation(kotlin("test"))
 }
 
-//application {
-//    mainClass.set("com.example.MainKt")  // Adjust to your main class file name
-//}
+tasks.test {
+    useJUnitPlatform()
+}
+
+application {
+    mainClass.set("com.jimandreas.MainKt")
+}
 /*
 plugins {
     kotlin("jvm") version "2.2.20"
