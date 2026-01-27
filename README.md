@@ -15,21 +15,40 @@ Some advanced Markdown features are not yet implemented. Pull requests are welco
 ### Build
 
 ```bash
-gradlew.bat build
+gradlew.bat build        # Windows
+./gradlew build           # Linux/macOS
 ```
 
-### Run
+### Run via Gradle
 
 The tool reads `file.md` from the project root and writes `file.pdf`:
 
 ```bash
-gradlew.bat run
+gradlew.bat run           # Windows
+./gradlew run             # Linux/macOS
+```
+
+### Run standalone (without Gradle)
+
+Build the distribution once, then run directly:
+
+```bash
+gradlew.bat installDist   # Windows
+./gradlew installDist     # Linux/macOS
+```
+
+This creates a standalone launcher with all dependencies in `build/install/markdownToPDF2/`. Run it from the project root (where `file.md` lives):
+
+```bash
+build/install/markdownToPDF2/bin/markdownToPDF2         # Linux/macOS (bash)
+build\install\markdownToPDF2\bin\markdownToPDF2.bat     # Windows
 ```
 
 ### Test
 
 ```bash
-gradlew.bat test
+gradlew.bat test          # Windows
+./gradlew test            # Linux/macOS
 ```
 
 ### Programmatic use
@@ -54,6 +73,8 @@ convertMarkdownFileToPdf(inputFile, outputFile)
 ## Background
 
 The original code was written by Grok 4 Fast. Table formatting was added through iteration. The "ultimate" Markdown test file from StackOverflow was used for validation — some edge cases remain unhandled.
+
+The test suite, Main.kt refactoring, and project configuration were contributed by Claude (Anthropic).
 
 ## References
 
