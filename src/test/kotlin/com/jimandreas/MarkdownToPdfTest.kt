@@ -1,3 +1,5 @@
+@file:Suppress("UnusedVariable")
+
 package com.jimandreas
 
 import com.itextpdf.kernel.pdf.PdfDocument
